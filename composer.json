@@ -2,14 +2,23 @@
     "name": "taboritis/phpstan-custom-rules",
     "description": "Bunch of rules for extending PhpStan",
     "type": "library",
+    "require": {
+        "php": ">=8.0 <8.3"
+    },
     "require-dev": {
-        "phpstan/phpstan": "1.11.x-dev",
-        "phpunit/phpunit": "11.0.x-dev"
+        "phpunit/phpunit": "^9.0",
+        "symfony/var-dumper": "^6.3",
+        "phpstan/phpstan": "^1.10"
     },
     "license": "MIT",
     "autoload": {
         "psr-4": {
             "Taboritis\\PhpstanCustomRules\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Taboritis\\PhpstanCustomRules\\": "tests/"
         }
     },
     "authors": [
@@ -18,8 +27,5 @@
             "email": "taboritis@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
-    "require": {
-        "php": "^8.2"
-    }
+    "minimum-stability": "stable"
 }
