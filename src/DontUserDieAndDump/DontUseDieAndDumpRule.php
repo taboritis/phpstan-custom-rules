@@ -24,6 +24,7 @@ class DontUseDieAndDumpRule implements Rule
         if ($node->name->toString() !== 'dd') {
             return [];
         }
+
         return [
             RuleErrorBuilder::message('Die and dump is not allowed')->build()
         ];
