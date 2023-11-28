@@ -31,7 +31,6 @@ class DontUseDieAndDumpRuleTest extends RuleTestCase
         ]);
     }
 
-
     protected function getRule(): Rule
     {
         return new DontUseDieAndDumpRule();
