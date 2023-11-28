@@ -13,7 +13,6 @@ use PHPStan\Rules\RuleErrorBuilder;
 /** @implements Rule<FuncCall> */
 class DontUseDieAndDumpRule implements Rule
 {
-
     public function getNodeType(): string
     {
         return FuncCall::class;
@@ -21,7 +20,14 @@ class DontUseDieAndDumpRule implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
-        if ($node->name->toString() !== 'dd') {
+        /** @var Node\Name $name */
+        $name = $node->name;
+
+        if (!$name instanceof Node\Name) {
+            return [];
+        }
+
+        if ($name->toLowerString() !== 'dd') {
             return [];
         }
 

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 $a = 'Example1';
 
 $b = 'Example2';

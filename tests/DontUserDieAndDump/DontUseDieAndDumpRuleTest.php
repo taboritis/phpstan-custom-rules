@@ -26,7 +26,7 @@ class DontUseDieAndDumpRuleTest extends RuleTestCase
         $this->analyse([__DIR__ . '/Fixtures/with_dd.php'], [
             [
                 'Die and dump is not allowed',
-                10,
+                9,
             ],
         ]);
     }
