@@ -1,0 +1,10 @@
+deptrac:
+  paths:
+    - src/
+  layers:
+    -
+      name: Controller
+      collectors:
+        -
+          type: className
+          value: .*
