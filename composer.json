@@ -28,5 +28,13 @@
             "email": "taboritis@gmail.com"
         }
     ],
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "scripts": {
+        "phpstan": "phpstan analyse",
+        "test": "phpunit",
+        "all-checks": [
+            "@phpstan",
+            "@test"
+        ]
+    }
 }

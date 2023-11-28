@@ -1,50 +1,50 @@
-name: PHP Composer
+name: "Full checks"
 
 on:
-  push:
-    branches: [ "**" ]
   pull_request:
-    branches: [ "" ]
+  push:
+    branches:
+      - main
 
-permissions:
-  contents: read
-  issues: read
-  checks: write
-  pull-requests: write
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  full-checks:
+    name: "PHP version ${{ matrix.php-version }}"
+
+    runs-on: ubuntu-22.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - "8.0"
+          - "8.1"
+          - "8.2"
 
     steps:
-      - uses: actions/checkout@v3
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
 
-      - name: Validate composer.json and composer.lock
-        run: composer validate --strict
-
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v3
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
         with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-
+          php-version: "${{ matrix.php-version }}"
+          tools: composer
 
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
+      - name: Get composer cache directory
+        id: composercache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
-      - name: PhpUnit tests
-        run: ./vendor/bin/phpunit --log-junit .results/results-phpunit.xml
-
-      - name: CodeSniffer tests
-        run: ./vendor/bin/phpcs --report-full --report-junit=.results/results-codesniffer.xml
-
-      - name: PhpStan tests
-        run: vendor/bin/phpstan --error-format=junit >> .results/results-phpstan.xml
-
-      - name: Publish Test Report
-        uses: mikepenz/action-junit-report@v3
-        if: success() || failure()
+      - name: Cache dependencies
+        uses: actions/cache@v2
         with:
-          report_paths: '.results/results-*.xml'
+          path: ${{ steps.composercache.outputs.dir }}
+          key: "php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}"
+          restore-keys: "php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}"
+
+      - name: "Install dependencies"
+        run: "composer install --no-interaction --no-progress"
+
+
+      - name: "Full CI"
+        run: "composer all"
