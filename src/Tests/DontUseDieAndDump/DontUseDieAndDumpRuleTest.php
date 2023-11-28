@@ -6,11 +6,11 @@ namespace Tests\Taboritis\PhpstanCustomRules\DontUserDieAndDump;
 
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
-use Taboritis\PhpstanCustomRules\DontUseDieAndDump\DontUseDieAndDumpRule;
+use Taboritis\PhpstanCustomRules\Rules\DontUseDieAndDumpRule;
 
 /**
  * @extends RuleTestCase<DontUseDieAndDumpRule>
- * @covers \Taboritis\PhpstanCustomRules\DontUseDieAndDump\DontUseDieAndDumpRule
+ * @covers \Taboritis\PhpstanCustomRules\Rules\DontUseDieAndDumpRule
  */
 class DontUseDieAndDumpRuleTest extends RuleTestCase
 {

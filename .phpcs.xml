@@ -3,7 +3,6 @@
     <description>A custom coding standard related to PSR-12</description>
 
     <file>./src</file>
-    <file>./tests</file>
 
     <arg name="extensions" value="php,inc"/>
     <arg name="colors"/>

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Taboritis\PhpstanCustomRules\DontUseDieAndDump;
+namespace Taboritis\PhpstanCustomRules\Rules;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
