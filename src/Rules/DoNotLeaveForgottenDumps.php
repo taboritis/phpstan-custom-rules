@@ -9,10 +9,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 
-/**
- * @implements Rule<Node\Expr\FuncCall>
- */
-class DoNotUseVarDump implements Rule
+class DoNotLeaveForgottenDumps implements Rule
 {
     public function getNodeType(): string
     {
@@ -21,17 +18,10 @@ class DoNotUseVarDump implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
-        $name = $node->name;
-
-        if (!$name instanceof Node\Name) {
-            return [];
-        }
-        if ($name->toLowerString() !== 'var_dump') {
-            return [];
-        }
+        $functionName = $node->name->toString();
 
         return [
-            RuleErrorBuilder::message('Do not use var_dump')->build()
+            RuleErrorBuilder::message("Do not use {$functionName} function")->build()
         ];
     }
 }
